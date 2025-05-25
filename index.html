@@ -203,6 +203,12 @@
                 font-size: 0.7em;
                 bottom: 10px;
             }
+
+            .notice-banner {
+                padding: 12px 15px;
+                font-size: 0.9em;
+                margin-bottom: 15px;
+            }
         }
 
         /* Very small screens - bez zmian */
@@ -285,10 +291,189 @@
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
+
+        /* Notice Banner Styles */
+        .notice-banner {
+            background: linear-gradient(135deg, #ff5722, #ff8a65);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+            animation: fadeInUp 0.5s 0.1s ease-out forwards;
+            opacity: 0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .notice-banner a {
+            color: #fff;
+            text-decoration: underline;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .notice-banner a:hover {
+            color: #ffecb3;
+        }
+
+        /* Top persistent banner */
+        .top-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #d32f2f, #f44336);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .top-banner a {
+            color: #ffecb3;
+            text-decoration: underline;
+        }
+
+        /* Modal notification */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ff5722, #ff8a65);
+            color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .modal-content h2 {
+            margin: 0 0 15px 0;
+            font-size: 1.5em;
+        }
+
+        .modal-content p {
+            margin: 10px 0;
+            font-size: 1.1em;
+            line-height: 1.4;
+        }
+
+        .modal-content a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.primary {
+            background: rgba(255,255,255,0.9);
+            color: #ff5722;
+        }
+
+        .modal-btn.primary:hover {
+            background: white;
+        }
+
+        /* Adjust body padding for top banner */
+        body {
+            padding-top: 35px;
+        }
+
+        @media (max-width: 480px) {
+            .top-banner {
+                font-size: 0.8em;
+                padding: 6px 10px;
+            }
+            
+            body {
+                padding-top: 30px;
+            }
+
+            .modal-content {
+                padding: 25px 20px;
+                margin: 15px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.3em;
+            }
+
+            .modal-content p {
+                font-size: 1em;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-btn {
+                padding: 12px 15px;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Top persistent banner -->
+    <div class="top-banner">
+        ⚠️ UWAGA: To nie jest oficjalna strona Wojtoteki! Główna strona: <a href="https://wojtoteka.ovh/" target="_blank">wojtoteka.ovh</a>
+    </div>
+
+    <!-- Modal notification -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <h2>🚨 Ważne powiadomienie!</h2>
+            <p>Ta strona to <strong>NIE</strong> jest oficjalna strona Wojtoteki!</p>
+            <p>Oficjalna strona znajduje się pod adresem:</p>
+            <p><a href="https://wojtoteka.ovh/" target="_blank">https://wojtoteka.ovh/</a></p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="window.open('https://wojtoteka.ovh/', '_blank')">Przejdź do głównej strony</button>
+                <button class="modal-btn" onclick="closeModal()">Pozostań tutaj</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Background video -->
     <video autoplay muted loop id="background-video">
@@ -303,7 +488,7 @@
         <p>Znajdziesz tu wszystkie ważne linki</p>
 
         <div class="social-links">
-            <a href="gry.html" target="_blank">🕹️ Moje gry</a>
+            <a href="https://wojtoteka.ovh/gry.html" target="_blank">🕹️ Moje gry</a>
             <a href="https://www.youtube.com/@xMarisnix" target="_blank">📺 YouTube</a>
             <a href="https://discord.com/users/1328758394588500024" target="_blank">💬 Discord (profil)</a>
             <a href="http://t.me/wojtoteka" target="_blank">📨 Telegram</a>
@@ -319,9 +504,20 @@
     </div>
 
     <script>
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
         document.addEventListener("DOMContentLoaded", function() {
             const yearSpan = document.getElementById('current-year');
-            if (yearSpan) { // Check if the element exists
+            if (yearSpan) {
                 const currentYear = new Date().getFullYear();
                 yearSpan.textContent = currentYear;
             }
